@@ -1,24 +1,10 @@
-// src/api/LogService.js
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: 'http://localhost:8081/api',
-})
+import api from './http'
 
 export default {
     getAll() {
-        return api.get('/logs')
+        return api.get('/log')
     },
     get(id) {
-        return api.get(`/logs/${id}`)
-    },
-    create(data) {
-        return api.post('/logs', data)
-    },
-    update(id, data) {
-        return api.put(`/logs/${id}`)
-    },
-    delete(id) {
-        return api.delete(`/logs/${id}`)
+        return api.get(`/log/${id}`)
     },
 }

@@ -1,24 +1,19 @@
-// src/api/BoxService.js
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: 'http://localhost:8081/api',
-})
+import api from './http'
 
 export default {
     getAll() {
-        return api.get('/boxes')
+        return api.get('/box')
     },
-    get(id) {
-        return api.get(`/boxes/${id}`)
+    get(bId) {
+        return api.get(`/box/${bId}`)
     },
     create(data) {
-        return api.post('/boxes', data)
+        return api.post('/box', data)
     },
-    update(id, data) {
-        return api.put(`/boxes/${id}`, data)
+    update(bId, data) {
+        return api.put(`/box/${bId}`, data)
     },
-    delete(id) {
-        return api.delete(`/boxes/${id}`)
+    delete(bId) {
+        return api.delete(`/box/${bId}`)
     },
 }

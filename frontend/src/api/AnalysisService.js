@@ -1,9 +1,4 @@
-// src/api/AnalysisService.js
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: 'http://localhost:8081/api', // wichtig: Port & /api
-})
+import api from './http'
 
 export default {
     getAll() {
