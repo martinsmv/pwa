@@ -56,3 +56,10 @@ frontend/.DS_Store
 ### === SYSTEM FILES === ###
 .DS_Store
 Thumbs.db
+
+# Cypress output (Videos/Screenshots/Reports)
+**/cypress/videos/
+**/cypress/screenshots/
+**/reports/
+**/mochawesome-report/
+**/mochawesome.json
