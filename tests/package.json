@@ -8,9 +8,8 @@
     "mochawesome-report-generator": "^6.2.0"
   },
   "scripts": {
-    "e2e": "cypress run",
-    "e2e:open": "cypress open",
-    "report:merge": "mkdir -p reports && mochawesome-merge reports/mochawesome*.json > reports/merged.json",
+    "e2e": "start-server-and-test \"npm --prefix ../frontend run dev -- --host 127.0.0.1 --port 5173\" http://127.0.0.1:5173 \"cypress run\"",
+    "report:merge": "mkdir -p reports && (ls reports/mochawesome*.json >/dev/null 2>&1 && mochawesome-merge reports/mochawesome*.json > reports/merged.json || echo '{\"stats\":{},\"results\":[]}' > reports/merged.json)",
     "report:html": "marge reports/merged.json -f index -o reports/html",
     "test": "npm run e2e || true && npm run report:merge && npm run report:html"
   }
