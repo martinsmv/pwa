@@ -15,6 +15,7 @@ module.exports = defineConfig({
     e2e: {
         baseUrl: "http://localhost:5173",
         specPattern: "e2e/**/*.cy.js",
+        excludeSpecPattern: ["**/sample.cy.js"],
         supportFile: "support/e2e.js",
         defaultCommandTimeout: 8000
     }
