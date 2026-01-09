@@ -1,0 +1,72 @@
+name: E2E Tests (Cypress) + HTML Report
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: |
+            frontend/package-lock.json
+            tests/package-lock.json
+
+      # --- FRONTEND build (optional but good sanity check) ---
+      - name: Install frontend deps
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      # --- TESTS (Cypress + mochawesome html) ---
+      - name: Install test deps
+        working-directory: tests
+        run: npm ci
+
+      - name: Run E2E tests (frontend preview)
+        working-directory: tests
+        env:
+          # falls du in deinen tests oder frontend ENV brauchst
+          CI: "true"
+        run: npm test
+
+      # --- Upload HTML report + optional videos/screenshots ---
+      - name: Upload HTML report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-html-report
+          path: tests/reports/html
+          if-no-files-found: warn
+
+      - name: Upload Cypress videos artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: tests/cypress/videos
+          if-no-files-found: warn
+
+      - name: Upload Cypress screenshots artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: tests/cypress/screenshots
+          if-no-files-found: warn
