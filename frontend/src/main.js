@@ -27,3 +27,6 @@ app.use(router)
 app.use(vuetify) // ⬅️ GANZ WICHTIG
 
 app.mount('#app')
+
+import { registerSW } from 'virtual:pwa-register'
+registerSW({ immediate: true })
